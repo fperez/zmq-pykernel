@@ -216,7 +216,7 @@ class Kernel(object):
     def start(self):
         while True:
             ident = self.reply_socket.recv()
-            assert self.reply_socket.rcvmore(), "Unexpected missing message part."
+            assert self.reply_socket.rcvmore, "Unexpected missing message part."
             msg = self.reply_socket.recv_json()
             omsg = Message(msg)
             print>>sys.__stdout__, omsg
@@ -241,7 +241,7 @@ def main():
 
     session = Session(username=u'kernel')
 
-    reply_socket = c.socket(zmq.XREP)
+    reply_socket = c.socket(zmq.ROUTER)
     reply_socket.bind(rep_conn)
 
     pub_socket = c.socket(zmq.PUB)
